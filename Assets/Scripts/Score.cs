@@ -1,21 +1,20 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Score : MonoBehaviour
 {
 
     [SerializeField] private int score;
     [SerializeField] private int FinalScore;
-    [SerializeField] private UnityEngine.Events.UnityEvent winAction;
+    [SerializeField] private UnityEvent winAction;
+
 
     public void UpdateScore()
     {
-        score ++;
+        score++;
         if(score == FinalScore)
         {
             winAction.Invoke();
         }
-    
-                
-            
     }
 }
