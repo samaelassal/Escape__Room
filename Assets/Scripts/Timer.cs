@@ -3,23 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Timer : MonoBehaviour
+public class TimerScript : MonoBehaviour
 {
-    [SerializeField] private float CurrentTime;
-    [SerializeField] private float DisplayTime;
+    [SerializeField] private float currentTime;
+    [SerializeField] private float displayTime;
     [SerializeField] private TMP_Text displayText;
+    [SerializeField] private GameObject gameOverBox;
 
+private void Start()
+    {
+        Time.timeScale = 1;
+    }
     void Update()
     {
-        if(CurrentTime >= 180)
+        currentTime -= Time.deltaTime;
+        displayTime = Mathf.Round(currentTime);
+
+        if(currentTime<0)
         {
-            displayText.text = "Game Over";
+            displayText.text = "Time's Up!";
+            gameOverBox.SetActive(true);
+            Time.timeScale = 0;
         }
         else
         {
-            displayText.text = Time.time.ToString("F2");
+            displayText.text = displayTime.ToString() + "s";
         }
-     
     }
 }
-
