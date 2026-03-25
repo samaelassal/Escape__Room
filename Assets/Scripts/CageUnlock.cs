@@ -7,7 +7,6 @@ public class CageUnlock : MonoBehaviour
     public Transform rightDoor;
     public GameObject successMessage;
     public AudioSource unlockSound;
-    public AudioSource doorOpenSound;
 
     private bool unlocked = false;
 
@@ -17,16 +16,6 @@ public class CageUnlock : MonoBehaviour
 
         if (other.gameObject == correctKey)
         {
-            Rigidbody rb = correctKey.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                rb.isKinematic = true;
-            }
-
-            correctKey.transform.position = transform.position;
-
             UnlockCage();
         }
     }
@@ -38,9 +27,7 @@ public class CageUnlock : MonoBehaviour
         if (unlockSound != null)
             unlockSound.Play();
 
-        if (doorOpenSound != null)
-            doorOpenSound.Play();
-
+        // disable key only after unlocking
         if (correctKey != null)
             correctKey.SetActive(false);
 
@@ -52,7 +39,5 @@ public class CageUnlock : MonoBehaviour
 
         if (successMessage != null)
             successMessage.SetActive(true);
-
-        Debug.Log("Cage unlocked!");
     }
 }
